@@ -1,0 +1,74 @@
+<p>history works!</p>
+
+<div *ngIf="this.src.finalObj.length>0; else condtion">
+    Welcome back, friend.
+ 
+
+<div class="container">
+    <div>
+     <a routerLink="">Add New Record</a>
+    </div>
+    <div class="content_">
+        <table class="table" >
+            <thead>
+                <tr class="table-primary">
+                  <th>#</th>
+                  <th scope="col">Code</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Compeny </th>
+                  <th scope="col">Indent Type</th>
+                  <th scope="col">Remarks</th>
+                </tr>
+
+<!-- 
+    document_no: string;
+    document_date: Date;
+    compeny: string;
+    indent: string;
+    deparment: string;
+    charge: string;
+    request: string;
+    indent_tag: string;
+    remarks: string;
+
+    check: boolean;
+    item: itemdetails[] -->
+
+
+
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of src.ary;let i = index">
+                    <td (click)="update(i)">
+                        <i class="fas fa-edit" ></i><b>edit</b>
+                    </td>
+                    <td>{{item.document_no}}</td>
+                    <td>{{item.document_date}}</td>
+                    <td>{{item.compeny}}</td>
+                    <td>
+                        <div *ngFor="let i of item.indent_tag">
+                        {{i.name}}
+                        </div>
+                    </td>
+                    <td>{{item.remarks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</div>
+  
+<ng-template #condtion>
+ 
+    hello
+    <div class="container">
+        Please Insert New Record................
+
+
+        Not any Record Inserted
+    </div>
+</ng-template>
+
+

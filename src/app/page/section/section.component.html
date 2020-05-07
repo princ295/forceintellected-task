@@ -1,0 +1,250 @@
+<br>
+    <div style="display: flex; justify-content: flex-end;">
+        <a  (click)="navigate()"><b>Go To Save Record</b></a>
+    </div>
+<br>
+<div class="container  content">
+    <div>
+        <b>Generral Details</b>
+    </div>
+    <div>
+    <button type="button" (click)="saveRecord()" class="btn btn-primary btn-sm">Save Item</button>
+    </div>
+</div>
+
+<fieldset>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Document</label> &nbsp;&nbsp;
+                    <input maxlength="30" type="text" class="form-control" aria-label="Sizing example input"
+                    name="remark"
+                    [(ngModel)]="src.obj.document_no"
+                    aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+            <div class="offset-md-1 col-md-5">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Date</label> &nbsp;&nbsp;
+                    <input type="text" class="form-control" name="date"
+                    [(ngModel)]="src.obj.document_date"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+            </div>
+
+            {{src.obj.document_date}}
+        </div>
+
+        <div class="row">
+            <div class="col-md-4" style="display: flex;">
+                <label for="">Compeny </label> &nbsp;&nbsp;
+                <span>
+                    <ng-select [items]="compeny | async"
+                    bindLabel="_"
+                    autofocus
+                    bindValue="_"
+                    name="company"
+                    [(ngModel)]="src.obj.compeny">
+                </ng-select>   
+                </span>  
+            </div>
+            <div class="offset-md-1 col-md-5">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Indent Type</label> &nbsp;&nbsp;
+                    <select class="form-control" id="nom" 
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                       (change)="indentTyape($event)">
+                       <option>Select One</option>
+                      <option *ngFor="let indent of indents" [value]="indent">{{indent}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-md-4" style="display: flex;">
+                <label for="">Department </label> &nbsp;&nbsp;
+                <span>
+                    <ng-select [items]="deparment | async"
+                    bindLabel="_"
+                    autofocus
+                    bindValue="_"
+                    name="company"
+                    [(ngModel)]="src.obj.deparment">
+                </ng-select>   
+                </span>  
+            </div>
+            <div class="offset-md-1 col-md-5">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Charge Type</label> &nbsp;&nbsp;
+                    <select class="form-control" id="nom" 
+                     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                        (change)="changeTyape($event)">
+                        <option>Select One</option>
+                       <option *ngFor="let type of types" [value]="type">{{type}}</option>
+                     </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4" style="display: flex;">
+                <label for="">Requested By </label> &nbsp;&nbsp;
+                <span>
+                    <ng-select [items]="user"
+                    [addTag]="addTagFn"
+                    [hideSelected]="true"
+                    multiple="true"
+                    bindLabel="name"
+                    [(ngModel)]="src.obj.request">
+                    </ng-select>                    
+                </span>  
+            </div>
+            <div class="offset-md-1 col-md-5">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Indent Tag</label> &nbsp;&nbsp;
+                    <span>
+                        <ng-select [items]="indentbrand"
+                        [addTag]="indentTagFn"
+                        [hideSelected]="true"
+                        multiple="true"
+                        bindLabel="name"
+                        [(ngModel)]="src.obj.indent_tag">
+                        </ng-select>                    
+                    </span>  
+                </div>
+            </div>
+        </div>
+
+
+        <!-- <div class="row">
+            <div class="col-md-12">
+                <div>Is Reserved</div>
+                <div class="input-group input-group-sm mb-3">
+                <input #resever
+                    id="check" 
+                    type="checkbox"  />
+                </div>
+            </div>
+        </div> -->
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group input-group-sm mb-3">
+                    <label for="">Is Reserved</label> &nbsp;&nbsp;
+                    <input  #check_ type="checkbox" [checked]="src.obj.check" 
+                    (change)="checkbox(check_.checked)" >
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <label for="">Remarks</label>
+                <textarea row="4" col="100" 
+                [(ngModel)]="src.obj.remarks"
+                class="form-control"maxlength="1000"></textarea>
+            </div>
+        </div>
+
+    </div>
+</fieldset>
+        <!-- ***********************table******************************* -->
+<br>
+<div class="content_">
+    <table class="table" >
+        <thead>
+            <tr class="table-primary">
+              <th>#</th>
+              <th scope="col">Code</th>
+              <th scope="col">Item Name</th>
+              <th scope="col">Tech. Specification</th>
+              <th scope="col">Make </th>
+              <th scope="col">UOM</th>
+              <th scope="col">Qty.</th>
+              <th scope="col">Rate </th>
+              <th scope="col">Amount</th>
+              <th scope="col">Required On</th>
+              <th scope="col">Remarks</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let item of src.obj.item;  let i = index">
+                 <td>{{i+1}}</td>
+                 <td>{{item.code}}</td> 
+                 <td>
+                    <ng-select (change)="selectTyape($event , i)" [items]="tech"
+                     [(ngModel)]="item.item_name" bindLabel="tech" bindValue="tech">
+                        <ng-template  ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+                        
+                            <div style="margin: 10px 0;" class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title" >Item: {{item.name}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Code : {{item.item_code}}</h6>
+                                    <div class="card-text">
+                                        Some quick example text to build: {{item.umo}}
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-select>
+                 </td> 
+                 <td>
+                    <textarea row="1" col="100" style="height: 45px;" maxlength="1000"
+                     [(ngModel)]="item.tech"
+                     class="form-control"maxlength="100"></textarea>
+                 </td> 
+                 <td>
+                    <select class="form-control" id="nom" 
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                       (change)="makeChange($event)">
+                       <option>Select One</option>
+                      <option *ngFor="let make of makes" [value]="make">{{make}}</option>
+                    </select>
+                 </td> 
+                 <td>
+                    <select class="form-control" id="nom" [(ngModel)]="item.uom"
+                    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                       (change)="makeChange($event)">
+                       <option>Select One</option>
+                      <option *ngFor="let make of umopicker" [value]="make">{{make}}</option>
+                    </select>
+                 </td> 
+                 <td>
+                    <input maxlength="30" type="number" class="form-control" aria-label="Sizing example input"
+                    name="remark"
+                    [(ngModel)]="item.qty" (change)="amountpriduct(i)"
+                    aria-describedby="inputGroup-sizing-sm">
+                 </td> 
+                 <td>
+                    <input maxlength="30" type="number" class="form-control" aria-label="Sizing example input"
+                    name="remark"
+                    [(ngModel)]="item.rate" (change)="amountpriduct(i)"
+                    aria-describedby="inputGroup-sizing-sm">
+                 </td> 
+                 <td>{{item.amount}}</td> 
+                 <td>
+                    <input type="date" class="form-control" aria-label="Sizing example input"
+                    name="remark"
+                    [(ngModel)]="item.required"
+                    aria-describedby="inputGroup-sizing-sm">
+                 </td> 
+                 <td>
+                    <textarea row="1" col="100" style="height: 45px;" maxlength="1000"
+                    [(ngModel)]="item.remarks"
+                    class="form-control"maxlength="1000"></textarea>
+                 </td>
+              </tr>
+          </tbody>
+    </table>
+</div>
+
+

@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+ 
+.container{ 
+   box-shadow:0px 0px 2px #141616;
+   padding: 25px 10px;
+   border-radius: 2px;
+
+   border: 1px solid #141616;
+}
+.ng-select{
+    width: 200px;
+}
+
+
+
+.ng-select .ng-arrow-wrapper{
+    padding: 0;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 32px;
+}
+.ng-select .ng-select-container {
+  min-height: 28px;
+}
